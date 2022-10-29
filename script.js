@@ -3,6 +3,7 @@ const calculator = {
   firstOperand: null,
   waitingForSecondOperand: false,
   operator: null,
+  special: null
 };
 
 
@@ -57,10 +58,10 @@ function handleOperator(nextOperator) {
     calculator.firstOperand = inputValue;
   } else if (operator) {
     const result = calculate(firstOperand, inputValue, operator);
-
+    
     calculator.displayValue = `${parseFloat(result.toFixed(7))}`;
     calculator.firstOperand = result;
-  }
+  } 
 
   calculator.waitingForSecondOperand = true;
   calculator.operator = nextOperator;
@@ -76,11 +77,37 @@ function calculate(firstOperand, secondOperand, operator) {
     return firstOperand * secondOperand;
   } else if (operator === '/') {
     return firstOperand / secondOperand;
+  } else if (operator === '%') {
+    return firstOperand / '100';
   }
-
-  return secondOperand;
+    return secondOperand;
 }
 
+function getPercent(special) {
+  const { firstOperand, operator } = calculator
+  const inputValue = parseFloat(displayValue);
+  if (firstOperand == null && !isNaN(inputValue)) {
+    calculator.firstOperand = inputValue;
+  } else if (operator) {
+     const result = calculatePercent(firstOperand, operator);
+   
+     calculator.displayValue = `${parseFloat(result.toFixed(7))}`;
+     calculator.firstOperand = result;
+}
+ function calculatePercent(firstOperand, operator) {
+   if (operator === '%') {
+     return firstOperand / 100;
+   }
+ }
+}
+/*function getPercDecimal(percent) {
+  if (waitingForSecondOperand === true) {
+      calculator.displayValue = digit;
+      calculator.waitingForSecondOperand = false;
+  
+  }
+}
+ */
 function resetCalculator() {
   calculator.displayValue = '0';
   calculator.firstOperand = null;
@@ -111,6 +138,8 @@ keys.addEventListener('click', event => {
     case '=':
       handleOperator(value);
       break;
+    case '%':
+      getPercent();
     case '.':
       inputDecimal(value);
       break;
