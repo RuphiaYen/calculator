@@ -91,11 +91,11 @@ function getPercent(special) {
   } else if (operator) {
      const result = calculatePercent(firstOperand, operator);
    
-     calculator.displayValue = `${parseFloat(result.toFixed(7))}`;
+     
      calculator.firstOperand = result;
 }
  function calculatePercent(firstOperand, operator) {
-   if (operator === '%') {
+   if (operator === '%' && firstOperand) {
      return firstOperand / 100;
    }
  }
