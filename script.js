@@ -84,22 +84,23 @@ function calculate(firstOperand, secondOperand, operator) {
 }
 
 function getPercent(special) {
-  const { firstOperand, operator } = calculator
+  const { firstOperand, operator, displayValue} = calculator
   const inputValue = parseFloat(displayValue);
   if (firstOperand == null && !isNaN(inputValue)) {
     calculator.firstOperand = inputValue;
   } else if (operator) {
      const result = calculatePercent(firstOperand, operator);
    
-     
+     calculator.displayValue = `${parseFloat(result.toFixed(7))}`;
      calculator.firstOperand = result;
-}
- function calculatePercent(firstOperand, operator) {
-   if (operator === '%' && firstOperand) {
-     return firstOperand / 100;
-   }
  }
 }
+ function calculatePercent(firstOperand, operator, displayValue) {
+   if (operator === '%' && firstOperand) {
+     calculator.displayValue = firstOperand / 100;
+   }
+ }
+
 /*function getPercDecimal(percent) {
   if (waitingForSecondOperand === true) {
       calculator.displayValue = digit;
