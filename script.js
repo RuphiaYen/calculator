@@ -47,7 +47,7 @@ function inputDecimal(dot) {
 }
 function handleOperator(nextOperator) {
   const { firstOperand, displayValue, operator } = calculator
-  const inputValue = displayValue.includes('%') ? calculatePercent(parseFloat(displayValue)) : parseFloat(displayValue);
+  const inputValue = parseFloat(displayValue);
 
   if (operator && calculator.waitingForSecondOperand) {
     calculator.operator = nextOperator;
@@ -86,13 +86,17 @@ function getPercent(special) {
   const inputValue = parseFloat(displayValue);
   if (firstOperand == null && !isNaN(inputValue)) {
     // the first operand must have the decimal version of the percentage
-    calculator.firstOperand = calculatePercent(inputValue);
+    const result = calculatePercent(inputValue);
+
+    calculator.firstOperand = result;
+    const displayValue = `${parseFloat(result.toFixed(7))}`
+    calculator.displayValue = displayValue
   } else if (operator) {
     // the same as with the second operand
     const result = calculatePercent(inputValue);
 
     // calculator.firstOperand = result;
-    // calculator.displayValue = `${parseFloat(result.toFixed(7))}`;
+    calculator.displayValue = `${parseFloat(result.toFixed(7))}`;
   }
 }
 function calculatePercent(value) {
@@ -140,6 +144,7 @@ keys.addEventListener('click', event => {
       break;
     case '%':
       getPercent();
+      break;
     case '.':
       inputDecimal(value);
       break;
