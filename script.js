@@ -6,21 +6,7 @@ const calculator = {
 };
 
 
-/*DOM Elements
-const operatorEl = document.querySelectorAll('.operator');
-const numberEl = document.querySelectorAll('.number');
-const output = document.querySelector('.output');
 
-//Functions
-/* function pressNum(event) {
-  if (output.textContent === '0') {
-    output.textContent = event.target.textContent;
-  } else {
-    output.textContent += event.target.textContent;
-    console.log(event.target.textContent);
-  }
-}
-*/
 
 function inputDigit(digit) {
   const { displayValue, waitingForSecondOperand } = calculator;
