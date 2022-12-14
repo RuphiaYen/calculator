@@ -66,7 +66,7 @@ function calculate(firstOperand, secondOperand, operator) {
   return secondOperand;
 }
 
-function getPercent(special) {
+function getPercent() {
   const { firstOperand, operator, displayValue } = calculator
   const inputValue = parseFloat(displayValue);
   if (firstOperand == null && !isNaN(inputValue)) {
