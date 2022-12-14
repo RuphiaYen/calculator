@@ -89,14 +89,14 @@ function calculatePercent(value) {
   return value / 100
 }
 
-/*function getPercDecimal(percent) {
-  if (waitingForSecondOperand === true) {
-      calculator.displayValue = digit;
-      calculator.waitingForSecondOperand = false;
-
+function negateDisplayValue() {
+  // Check if the displayValue is not zero
+  if (calculator.displayValue !== '0') {
+    // Negate the displayValue
+    calculator.displayValue = (calculator.displayValue * -1).toString();
   }
 }
- */
+
 function resetCalculator() {
   calculator.displayValue = '0';
   calculator.firstOperand = null;
@@ -119,6 +119,7 @@ keys.addEventListener('click', event => {
     return;
   }
 
+
   switch (value) {
     case '+':
     case '-':
@@ -126,6 +127,9 @@ keys.addEventListener('click', event => {
     case '/':
     case '=':
       handleOperator(value);
+      break;
+    case '+/-':
+      negateDisplayValue();
       break;
     case '%':
       getPercent();
@@ -144,12 +148,3 @@ keys.addEventListener('click', event => {
 
   updateDisplay();
 });
-
-/* numberEl.forEach(btn => {
-  btn.addEventListener('click', pressNum)
-});
-
-/* operatorEl.forEach(btn => {
- btn.addEventListener('click', pressOperator)
-  });
-*/
